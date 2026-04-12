@@ -3,6 +3,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import Header from "../../components/Header";
+import ProductActions from "../../components/ProductActions";
 import { getProductBySlug, getAllProducts, formatPrice } from "../../lib/products";
 
 interface PageProps {
@@ -104,20 +105,7 @@ export default async function ProductPage({ params }: PageProps) {
               {formatPrice(product.price)}
             </p>
 
-            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-              <a
-                href={`mailto:your-email@example.com?subject=${encodeURIComponent(`Inquiry about ${product.name}`)}&body=${encodeURIComponent(`Hi, I'm interested in your product: ${product.name}\n\nPrice: ${formatPrice(product.price)}\n\nI'd like to know more about:`)}`}
-                className="flex-1 rounded-xl bg-zinc-900 px-6 py-4 text-center text-lg font-semibold text-white transition-colors hover:bg-zinc-700 disabled:cursor-not-allowed disabled:bg-zinc-400 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200"
-              >
-                {product.inStock ? "Get a Quote" : "Currently Unavailable"}
-              </a>
-              <a
-                href="mailto:your-email@example.com"
-                className="flex-1 rounded-xl border border-zinc-300 px-6 py-4 text-center text-lg font-semibold text-zinc-700 transition-colors hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800"
-              >
-                Contact Us
-              </a>
-            </div>
+            <ProductActions />
           </div>
         </div>
 
