@@ -83,7 +83,7 @@ export default function SignIn() {
                 className="mt-2 w-full rounded-lg border border-zinc-300 px-4 py-3 text-zinc-900 placeholder:text-zinc-400 focus:border-zinc-500 focus:outline-none dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-100"
               />
             )}
-            <label className={`mt-4 block text-sm font-medium text-zinc-700 dark:text-zinc-300`}>
+            <label className="mt-4 block text-sm font-medium text-zinc-700 dark:text-zinc-300">
               Email
             </label>
             <input
@@ -109,7 +109,7 @@ export default function SignIn() {
             <button
               type="submit"
               disabled={loading}
-              className="mt-6 w-full rounded-xl bg-zinc-900 px-6 py-4 text-lg font-semibold text-white transition-colors hover:bg-zinc-700 disabled:opacity-50 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200"
+              className="mt-6 w-full rounded-lg bg-zinc-900 px-6 py-3 text-base font-medium text-white transition-colors hover:bg-zinc-700 disabled:opacity-50 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200"
             >
               {loading ? "Please wait..." : (isSignUp ? "Create Account" : "Sign In")}
             </button>
