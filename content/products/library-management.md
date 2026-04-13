@@ -1,7 +1,7 @@
 ---
 name: "Library Management System"
 price: 10
-image: "/images/placeholder.svg"
+image: "/library-management.png"
 inStock: true
 ---
 
