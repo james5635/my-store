@@ -1,7 +1,7 @@
 ---
 name: "15 Windows Server Systems"
 price: 15
-image: "/images/placeholder.svg"
+image: "/15-windows-server-system.png"
 inStock: true
 ---
 

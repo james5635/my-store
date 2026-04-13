@@ -108,7 +108,7 @@ export default async function ProductPage({ params }: PageProps) {
                 src={product.image}
                 alt={product.name}
                 fill
-                className="object-cover"
+                className="object-contain"
                 priority
               />
             ) : (

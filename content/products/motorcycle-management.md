@@ -1,7 +1,7 @@
 ---
 name: "Motorcycle Shop Management"
 price: 10
-image: "/images/placeholder.svg"
+image: "/motorcycle-management.png"
 inStock: true
 featured: true
 ---

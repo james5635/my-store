@@ -29,13 +29,13 @@ export default function ProductCard({ product }: ProductCardProps) {
   return (
     <Link href={`/products/${product.slug}`} className="group">
       <div className="flex flex-col overflow-hidden rounded-xl bg-white shadow-sm transition-all duration-300 hover:shadow-lg dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 h-full">
-        <div className="relative aspect-[4/3] overflow-hidden bg-zinc-100 dark:bg-zinc-800">
+        <div className="relative aspect-square overflow-hidden bg-zinc-100 dark:bg-zinc-800">
           {hasImage ? (
             <Image
               src={product.image}
               alt={product.name}
               fill
-              className="object-cover"
+              className="object-contain"
             />
           ) : (
             <div className={`flex h-full items-center justify-center bg-gradient-to-br ${color.from} ${color.to}`}>

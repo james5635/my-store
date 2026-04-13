@@ -1,7 +1,7 @@
 ---
 name: "Calculator"
 price: 5
-image: "/images/placeholder.svg"
+image: "/calculator.png"
 inStock: true
 ---
 
