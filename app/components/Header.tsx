@@ -1,4 +1,5 @@
 import Link from "next/link";
+import AuthButton from "./AuthButton";
 
 export default function Header() {
   return (
@@ -23,12 +24,7 @@ export default function Header() {
           >
             Contact
           </Link>
-          <a
-            href="mailto:your-email@example.com"
-            className="rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-zinc-700 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200"
-          >
-            Get in Touch
-          </a>
+          <AuthButton />
         </nav>
       </div>
     </header>
