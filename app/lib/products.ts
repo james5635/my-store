@@ -20,19 +20,11 @@ export interface Product {
 export async function ensureProductInDb(slug: string): Promise<string> {
   const fullPath = path.join(productsDirectory, `${slug}.md`);
   const fileContents = fs.readFileSync(fullPath, "utf8");
-  const { data, content } = matter(fileContents);
+  const { data } = matter(fileContents);
 
   const product = await prisma.product.upsert({
     where: { slug },
-    update: {
-      name: data.name,
-      price: data.price,
-      category: data.category || "General",
-      image: data.image || "/images/placeholder.jpg",
-      inStock: data.inStock !== false,
-      featured: data.featured === true,
-      content,
-    },
+    update: {},
     create: {
       id: slug,
       slug,
@@ -42,7 +34,6 @@ export async function ensureProductInDb(slug: string): Promise<string> {
       image: data.image || "/images/placeholder.jpg",
       inStock: data.inStock !== false,
       featured: data.featured === true,
-      content,
     },
   });
 
