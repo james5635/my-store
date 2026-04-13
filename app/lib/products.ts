@@ -1,10 +1,12 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import { prisma } from "./prisma";
 
 const productsDirectory = path.join(process.cwd(), "content/products");
 
 export interface Product {
+  id: string;
   slug: string;
   name: string;
   price: number;
@@ -13,6 +15,38 @@ export interface Product {
   inStock: boolean;
   featured: boolean;
   content: string;
+}
+
+export async function ensureProductInDb(slug: string): Promise<string> {
+  const fullPath = path.join(productsDirectory, `${slug}.md`);
+  const fileContents = fs.readFileSync(fullPath, "utf8");
+  const { data, content } = matter(fileContents);
+
+  const product = await prisma.product.upsert({
+    where: { slug },
+    update: {
+      name: data.name,
+      price: data.price,
+      category: data.category || "General",
+      image: data.image || "/images/placeholder.jpg",
+      inStock: data.inStock !== false,
+      featured: data.featured === true,
+      content,
+    },
+    create: {
+      id: slug,
+      slug,
+      name: data.name,
+      price: data.price,
+      category: data.category || "General",
+      image: data.image || "/images/placeholder.jpg",
+      inStock: data.inStock !== false,
+      featured: data.featured === true,
+      content,
+    },
+  });
+
+  return product.id;
 }
 
 export function getAllProducts(): Product[] {
@@ -34,6 +68,7 @@ export function getProductBySlug(slug: string): Product {
   const { data, content } = matter(fileContents);
 
   return {
+    id: slug,
     slug,
     name: data.name,
     price: data.price,

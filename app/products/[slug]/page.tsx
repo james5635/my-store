@@ -4,7 +4,12 @@ import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import Header from "../../components/Header";
 import ProductActions from "../../components/ProductActions";
-import { getProductBySlug, getAllProducts, formatPrice } from "../../lib/products";
+import LikeButton from "../../components/LikeButton";
+import CommentSection from "../../components/CommentSection";
+import { getProductBySlug, getAllProducts, formatPrice, ensureProductInDb } from "../../lib/products";
+import { prisma } from "../../lib/prisma";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../../api/auth/[...nextauth]/route";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -53,8 +58,34 @@ export default async function ProductPage({ params }: PageProps) {
     return null;
   }
 
+  const session = await getServerSession(authOptions);
   const color = getPlaceholderColor(product.name);
   const hasImage = product.image && product.image !== "/images/placeholder.svg";
+
+  let likeCount = 0;
+  let userLiked = false;
+
+  try {
+    const dbProductId = await ensureProductInDb(slug);
+    
+    likeCount = await prisma.like.count({
+      where: { productId: dbProductId },
+    });
+
+    if (session?.user?.id) {
+      const like = await prisma.like.findUnique({
+        where: {
+          userId_productId: {
+            userId: session.user.id,
+            productId: dbProductId,
+          },
+        },
+      });
+      userLiked = !!like;
+    }
+  } catch (error) {
+    console.error("Error fetching likes:", error);
+  }
 
   return (
     <div className="min-h-screen bg-zinc-50 dark:bg-black">
@@ -105,7 +136,17 @@ export default async function ProductPage({ params }: PageProps) {
               {formatPrice(product.price)}
             </p>
 
-            <ProductActions />
+            <div className="mt-4">
+              <LikeButton
+                productId={product.id}
+                initialLikes={likeCount}
+                initialUserLiked={userLiked}
+              />
+            </div>
+
+            <div className="mt-6">
+              <ProductActions />
+            </div>
           </div>
         </div>
 
@@ -114,6 +155,8 @@ export default async function ProductPage({ params }: PageProps) {
             <ReactMarkdown>{product.content}</ReactMarkdown>
           </div>
         </div>
+
+        <CommentSection productId={product.id} />
       </main>
     </div>
   );
