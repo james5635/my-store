@@ -1,7 +1,7 @@
 ---
 name: "8 Design Patterns"
 price: 8
-image: "/images/placeholder.svg"
+image: "/8-design-pattern.png"
 inStock: true
 ---
 

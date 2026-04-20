@@ -62,7 +62,7 @@ export default function Contact() {
             </a>
 
             <a
-              href="https://facebook.com/sou chanrojame"
+              href="https://facebook.com/souchanrojame"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-4 rounded-xl border border-zinc-200 p-4 transition-colors hover:bg-zinc-50 dark:border-zinc-800 dark:hover:bg-zinc-800"

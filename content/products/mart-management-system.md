@@ -2,7 +2,7 @@
 name: "Mart Management System"
 price: 15
 category: "Digital"
-image: "/images/placeholder.svg"
+image: "/mart-management.png"
 inStock: true
 featured: true
 ---
